@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garhwal Ki Peeda</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+</head>
+<body>
+
+    <nav>
+        <div class="main-nav container flex">
+            <a href="#" onclick="reload()" class="company-logo">
+                <img src="1.jpeg" alt="company logo">
+            </a>
+            <a href="#" onclick="reload()" class="logo">
+                <img src="glogo.png" alt="logo">
+            </a>
+            <div class="nav-links">
+                <ul class="flex">
+                    <!-- Uttarakhand Dropdown Menu -->
+                    <li class="hover-link nav-item" id="uttarakhand" onclick="toggleDistricts()">Uttarakhand</li>  
+                    <li class="hover-link nav-item" id="finance" onclick="onNavItemClick('finance')">Finance</li>
+                    <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('politics')">Politics</li>
+                    <li class="hover-link nav-item" id="sports" onclick="onNavItemClick('sports')">Sports</li>
+                    <li class="hover-link nav-item" id="national-news" onclick="onNavItemClick('national-news')">National</li>
+                    <li class="hover-link nav-item" id="entertainment" onclick="onNavItemClick('entertainment')">Entertainment</li>
+                    <li class="hover-link nav-item" id="local-news" onclick="onNavItemClick('local-news')">Local</li>
+                    <li class="hover-link nav-item" id="technology" onclick="onNavItemClick('technology')">Technology</li>
+                </ul>
+            </div>
+
+            
+            
+            <div class="search-bar flex">
+                <input id="search-text" type="text" class="news-input" placeholder="Search news...">
+                <select id="category-filter">
+                    <option value="">All Categories</option>
+                    <option value="finance">Finance</option>
+                    <option value="politics">Politics</option>
+                    <option value="sports">Sports</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="technology">Technology</option>
+                </select>
+                <input type="date" id="date-filter">
+                <button id="search-button" class="search-button">Search</button>
+            </div>
+            
+            <div id="loading" class="loading-spinner" style="display: none;"></div>
+            <div id="loading-overlay" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+            
+        </div>
+    </nav>
+
+    <div class="news-ticker" id="news-ticker">
+        <marquee behavior="scroll" direction="left">Breaking News: Your latest updates here...</marquee>
+    </div>
+    
+    <main>
+        <!-- Container for displaying Uttarakhand districts -->
+        <div class="district-container container flex" id="district-container" style="display: none;">
+            <h2>Select a District in Uttarakhand</h2>
+            <div class="districts-container flex">
+                <button class="district-btn" onclick="showDistrictNews('Almora')">Almora</button>
+                <button class="district-btn" onclick="showDistrictNews('Bageshwar')">Bageshwar</button>
+                <button class="district-btn" onclick="showDistrictNews('Chamoli')">Chamoli</button>
+                <button class="district-btn" onclick="showDistrictNews('Champawat')">Champawat</button>
+                <button class="district-btn" onclick="showDistrictNews('Dehradun')">Dehradun</button>
+                <button class="district-btn" onclick="showDistrictNews('Haridwar')">Haridwar</button>
+                <button class="district-btn" onclick="showDistrictNews('Nainital')">Nainital</button>
+                <button class="district-btn" onclick="showDistrictNews('Pauri Garhwal')">Pauri Garhwal</button>
+                <button class="district-btn" onclick="showDistrictNews('Pithoragarh')">Pithoragarh</button>
+                <button class="district-btn" onclick="showDistrictNews('Rudraprayag')">Rudraprayag</button>
+                <button class="district-btn" onclick="showDistrictNews('Tehri Garhwal')">Tehri Garhwal</button>
+                <button class="district-btn" onclick="showDistrictNews('Udham Singh Nagar')">Udham Singh Nagar</button>
+                <button class="district-btn" onclick="showDistrictNews('Uttarkashi')">Uttarkashi</button>
+            </div>
+        </div>
+
+        <!-- News cards container -->
+        <div class="cards-container container flex" id="cards-container"></div>
+    </main>
+
+
+    <template id="template-news-card">
+        <div class="card hover-effect">
+            <div class="card-header">
+                <img src="https://via.placeholder.com/400x200" alt="news-image" id="news-img">
+            </div>
+            <div class="card-content">
+                <h3 id="news-title">This is the Title</h3>
+                <h6 class="news-source" id="news-source">End Gadget 26/08/2023</h6>
+                <p class="news-desc" id="news-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+        </div>
+    </template>
+    
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
+
+    <footer class="about-section">
+        <div class="container flex footer-content">
+            <div class="about-text">
+                <h2>About Garhwal Ki Peeda</h2>
+                <p>
+                    जय हिन्द!..जय गढ़वाल!..
+                    गढ़वाल की पीड़ा is an online newspaper dedicated to bringing you the latest news and stories from the Garhwal region and beyond. Our goal is to provide accurate, timely, and insightful news coverage that matters to our readers. We cover a wide range of topics including politics, local news, sports, entertainment, and more.
+                </p>
+                <p>
+                    Founded in [2015], we are committed to serving the community with honest journalism and maintaining the highest standards of integrity and ethics. Our team of experienced journalists and contributors work tirelessly to deliver news that is relevant, engaging, and impactful.
+                </p>
+                <p>
+                    Stay connected with us for the latest updates and explore our various sections for news that resonates with you.
+                </p>
+            </div>
+    
+            <!-- Social Media Section with Font Awesome Icons -->
+            <div class="social-media">
+                <h3>Connect with us:</h3>
+                <ul class="social-links flex">
+                    <li>
+                        <a href="https://facebook.com/garhwalkipeeda" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/garhwalkipeeda" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter-square"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/garhwalkipeeda" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://youtube.com/company/garhwalkipeeda" target="_blank" aria-label="Youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="comment-section">
+            <h3>Comments</h3>
+            <div id="comments-list"></div>
+            <textarea id="comment-input" placeholder="Add a comment..." rows="3"></textarea>
+            <button id="submit-comment" class="submit-comment-button">Submit</button>
+        </div>
+        
+
+        <div class="newsletter-section">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest news delivered to your inbox.</p>
+            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+            <button id="subscribe-button">Subscribe</button>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Garhwal Ki Peeda. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+
+    <script src="script.js"></script>
+</body>
+</html> 
